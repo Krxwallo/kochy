@@ -18,6 +18,7 @@ var corners by mutableStateOf(3)
 var editing by mutableStateOf(true)
 var start by mutableStateOf(Offset(30f, 30f))
 var end by mutableStateOf(Offset(30f, 1000f))
+var rotationMultiplier by mutableStateOf(-1f)
 
 @Composable
 fun Settings() {
@@ -27,7 +28,7 @@ fun Settings() {
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Depth: $depth", Modifier.width(80.dp))
+            Text("Depth: $depth", Modifier.width(100.dp))
             Spacer(Modifier.width(10.dp))
             var sliderValue by remember { mutableStateOf(depth.toFloat()) }
             if (sliderValue.roundToInt() != depth) sliderValue = depth.toFloat()
@@ -41,21 +42,29 @@ fun Settings() {
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Corners: ${corners.takeIf { it != 2 } ?: "-"}", Modifier.width(80.dp))
+            Text("Corners: ${corners.takeIf { it != 1 } ?: "-"}", Modifier.width(100.dp))
             Spacer(Modifier.width(10.dp))
             var sliderValue by remember { mutableStateOf(corners.toFloat()) }
             if (sliderValue.roundToInt() != corners) sliderValue = corners.toFloat()
             Slider(sliderValue, {
                 sliderValue = it
                 corners = sliderValue.roundToInt()
-            }, valueRange = 2f..10f)
+            }, valueRange = 1f..10f)
         }
-        // Start/End points
+
         Row {
+            // Invert Rotation
+            Button(modifier = Modifier.weight(1f), onClick = {
+                rotationMultiplier *= -1f
+            }) {
+                Text("Invert Rotation")
+            }
+            Spacer(Modifier.width(5.dp))
+            // Moving
             Button(modifier = Modifier.weight(1f), onClick = {
                 editing = !editing
             }) {
-                Text(if (editing) "Save" else "Edit")
+                Text(if (editing) "Save" else "Move")
             }
         }
     }

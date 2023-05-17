@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 
+expect val overlaySize: Float
+
 @Composable
 fun EditOverlay(
     modifier: Modifier = Modifier
@@ -20,8 +22,7 @@ fun EditOverlay(
                         start += dragAmount
                         found = true
                         break
-                    }
-                    else if (pos.x in end.x.dragRange() && pos.y in end.y.dragRange()) {
+                    } else if (pos.x in end.x.dragRange() && pos.y in end.y.dragRange()) {
                         end += dragAmount
                         found = true
                         break
@@ -34,9 +35,9 @@ fun EditOverlay(
             }
         }
     ) {
-        drawCircle(Color.Black, 10f, start)
-        drawCircle(Color.Red, 10f, end)
+        drawCircle(Color.Black, overlaySize, start)
+        drawCircle(Color.Red, overlaySize, end)
     }
 }
 
-private fun Float.dragRange() = (this - 30f)..(this + 30f)
+private fun Float.dragRange() = (this - (overlaySize + 10f))..(this + (overlaySize + 10f))

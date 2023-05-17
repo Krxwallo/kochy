@@ -4,7 +4,7 @@ import io.github.krxwallo.common.App
 
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(title = "Kochy", onCloseRequest = ::exitApplication) {
         App()
     }
 }
