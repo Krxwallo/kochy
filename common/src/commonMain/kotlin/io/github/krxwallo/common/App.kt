@@ -1,21 +1,18 @@
 package io.github.krxwallo.common
 
-import androidx.compose.material.Text
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun App() {
-    var text by remember { mutableStateOf("Hello, World!") }
-    val platformName = getPlatformName()
-
-    Button(onClick = {
-        text = "Hello, ${platformName}"
-    }) {
-        Text(text)
+    Column {
+        Settings()
+        Spacer(Modifier.height(10.dp))
+        Box {
+            Curve(Modifier.fillMaxSize())
+            if (showPoints) PointsOverlay(Modifier.fillMaxSize())
+        }
     }
 }
