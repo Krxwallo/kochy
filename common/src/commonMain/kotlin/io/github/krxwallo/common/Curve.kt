@@ -6,13 +6,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.rotate
 
 @Composable
 fun Curve(
     modifier: Modifier = Modifier
 ) {
     Canvas(modifier) {
-        drawKochCurve(start.x, start.y, end.x, end.y, depth)
+        if (corners == 2) drawKochCurve(start.x, start.y, end.x, end.y, depth)
+        else {
+            //drawKochCurve(start.x, start.y, end.x, end.y, depth)
+            fun rotated(start: Offset, end: Offset, maxLines: Int, currentLine: Int = 0) {
+                drawKochCurve(start.x, start.y, end.x, end.y, depth)
+                if (currentLine == maxLines) {
+                    // max recursion depth; draw curve
+                    //drawKochCurve(start.x, start.y, end.x, end.y, depth)
+                }
+                else {
+                    rotate(300f/*360f - (180f / corners)*/, start) {
+                        rotated(Offset(2*start.x-end.x, 2*start.y-end.y), start, maxLines, currentLine + 1)
+                    }
+                }
+            }
+            rotated(start, end, corners)
+        }
     }
 }
 

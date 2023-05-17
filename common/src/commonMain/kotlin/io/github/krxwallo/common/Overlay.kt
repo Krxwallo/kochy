@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 
 @Composable
-fun PointsOverlay(
+fun EditOverlay(
     modifier: Modifier = Modifier
 ) {
     Canvas(modifier

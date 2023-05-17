@@ -12,7 +12,7 @@ fun App() {
         Spacer(Modifier.height(10.dp))
         Box {
             Curve(Modifier.fillMaxSize())
-            if (showPoints) PointsOverlay(Modifier.fillMaxSize())
+            if (editing) EditOverlay(Modifier.fillMaxSize())
         }
     }
 }
